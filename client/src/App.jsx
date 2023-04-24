@@ -1,7 +1,11 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 export default function App() {
-  return (
-    <section className='app'>
-      <h1>THIS IS MY APP</h1>
-    </section>
-  )
+    return (
+        <Router>
+            <Routes>
+                <Route />
+            </Routes>
+        </Router>
+    )
 }
