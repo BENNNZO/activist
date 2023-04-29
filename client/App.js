@@ -1,74 +1,80 @@
 import React, { useState } from 'react'
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, Image, ScrollView, FlatList } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Image, ScrollView, FlatList, SectionList } from 'react-native';
 
 const logo = {
-  uri: 'https://reactnative.dev/img/tiny_logo.png',
-  height: 64,
-  width: 64
+    uri: 'https://reactnative.dev/img/tiny_logo.png',
+    height: 64,
+    width: 64
 }
 
 export default function App() {
-  const [text, setText] = useState('')
-  const images = []
+    const dataPoints = {
+        times: [
+            { title: 'Wake Up' },
+            { title: 'Sleep' }
+        ],
+        scale: [
+            { title: 'Mood' },
+            { title: 'Energy' }
+        ],
+        boolean: [
+            { title: 'Breakfast' },
+            { title: 'Lunch' },
+            { title: 'Dinner' },
+            { title: 'Headache' },
+            { title: 'Excersise' },
+            { title: 'Shower' },
+            { title: 'Work' },
+            { title: 'Game' },
+            { title: 'Music' }
+        ]
+    }    
 
-  for (let i = 0; i < 30; i++) {
-    images.push(<Image key={i} source={logo} />)
-  }
-
-  return (
-    <>
-      <StatusBar style="auto" />
-      <View>
-        <Text
-          style={{
-            height: 100,
-            width: '100%',
-            padding: 10,
-            paddingTop: 70,
-            backgroundColor: 'rgb(240, 240, 240)'
-          }}
-        >Nav bar right here</Text>
-      </View>
-      <View>
-        <FlatList 
-          data={[
-            {text: 'hello'},
-            {text: 'world'},
-            {text: 'how'},
-            {text: 'are'},
-            {text: 'you'},
-            {text: 'today'}
-          ]}
-          renderItem={({item}) => <Text style={{ width: 100 }}>{item.text}</Text>}
-        />
-      </View>
-      <ScrollView contentContainerStyle={styles.container}>
-        <Text>Hello World!</Text>
-        <TextInput
-          style={{ height: 40, width: 300, borderWidth: 1, borderRadius: 5, padding: 5 }}
-          placeholder="Type Your Text Here To Translate!"
-          onChangeText={newText => setText(newText)}
-          defaultValue={text}
-        />
-        <Text
-          style={{ padding: 10, fontSize: 42 }}
-        >{text.split(' ').map(word => word && '🍕iokcvbfjlgudoip9 0-[=').join(' ')}</Text>
-        <View>
-          {images.map((e, i) => {
-            return (e)
-          })}
-        </View>
-      </ScrollView>
-    </>
-  );
+    return (
+        <>
+            <StatusBar style="auto" />
+            <Text style={{ height: 100, padding: 50, textAlign: 'center' }}>Nav Bar Area</Text>
+            <View style={styles.container}>
+                <Text style={styles.title}>Times</Text>
+                {dataPoints.times.map((e, i) => {
+                    return (
+                        <Text style={styles.item}>{e.title}</Text>
+                        )
+                    })}
+                <Text style={styles.title}>Scales</Text>
+                {dataPoints.scale.map((e, i) => {
+                    return (
+                        <Text style={styles.item}>{e.title}</Text>
+                        )
+                    })}
+                <Text style={styles.title}>Booleans</Text>
+                {dataPoints.boolean.map((e, i) => {
+                    return (
+                        <Text style={styles.item}>{e.title}</Text>
+                    )
+                })}
+            </View>
+        </>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    // flex: 1,
-    backgroundColor: '#fff',
-    // alignItems: 'center',
-    // justifyContent: 'center',
-  },
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        gap: 10,
+    },
+    title: {
+        fontSize: 30
+    },
+    item: {
+        padding: 10,
+        borderWidth: 1,
+        borderColor: 'rgb(220, 220, 220)',
+        borderRadius: 10,
+        width: '80%',
+        textAlign: 'center'
+    }
 });
