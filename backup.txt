@@ -1,0 +1,21 @@
+
+            <ScrollView contentContainerStyle={styles.container}>
+                <Text style={styles.title}>Times</Text>
+                {dataPoints.times.map(e => {
+                    return (
+                        <Text style={styles.item}>{e.title}</Text>
+                    )
+                })}
+                <Text style={styles.title}>Scales</Text>
+                {dataPoints.scale.map(e => {
+                    return (
+                        <Text style={styles.item}>{e.title}</Text>
+                    )
+                })}
+                <Text style={styles.title}>Booleans</Text>
+                {dataPoints.boolean.map(e => {
+                    return (
+                        <Text style={styles.item}>{e.title}</Text>
+                    )
+                })}
+            </ScrollView>
