@@ -4,7 +4,7 @@ import { PanGestureHandler } from 'react-native-gesture-handler';
 import Animated, { runOnJS, useAnimatedGestureHandler, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import { FontAwesome5 } from '@expo/vector-icons'
 
-export default function ListItem({ task }) {
+export default function ListItem({ task, changeBoolean, i }) {
     const translateX = useSharedValue(0)
     const checkSize = useSharedValue(1)
     const trashSize = useSharedValue(1)
@@ -15,20 +15,23 @@ export default function ListItem({ task }) {
         },
         onActive: (e, c) => {
             translateX.value = e.translationX + c.translateX
-            console.log(translateX.value)
+            // console.log(translateX.value)
         },
         onEnd: () => {
             translateX.value > 95 ? (
                 console.log('green'),
+                runOnJS(changeBoolean)(i, true),
                 translateX.value = withSpring(100),
                 checkSize.value = withSpring(1.75),
                 trashSize.value = withSpring(1)
             ) : translateX.value < -95 ? (
                 console.log('red'),
+                runOnJS(changeBoolean)(i, false),
                 translateX.value = withSpring(-100),
                 trashSize.value = withSpring(1.75),
                 checkSize.value = withSpring(1)
             ) : (
+                runOnJS(changeBoolean)(i, null),
                 translateX.value = withSpring(0),
                 trashSize.value = withSpring(1),
                 checkSize.value = withSpring(1)
@@ -64,7 +67,7 @@ export default function ListItem({ task }) {
             </Animated.View>
             <PanGestureHandler onGestureEvent={panGesture}>
                 <Animated.View style={[styles.task, taskStyle]}>
-                    <Text style={{ fontSize: 20 }}>{task.title}</Text>
+                    <Text style={{ fontSize: 20, color: 'rgb(220, 220, 220)' }}>{task.title}</Text>
                 </Animated.View>
             </PanGestureHandler>
         </View>
@@ -75,16 +78,16 @@ const styles = StyleSheet.create({
     taskContainer: {
         width: '100%',
         alignItems: 'center',
-        marginVertical: 15
+        marginVertical: 10
     },
     task: {
-        width: '40%',
-        height: 50,
-        backgroundColor: 'rgba(250, 250, 250, 1)',
+        width: '45%',
+        height: 60,
+        backgroundColor: 'rgb(60, 60, 60)',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 20,
-        shadowOpacity: 0.1,
+        shadowOpacity: 0.25,
         shadowOffset: {
             width: 0,
             height: 5

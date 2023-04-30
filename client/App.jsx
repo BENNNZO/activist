@@ -1,32 +1,43 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, ScrollView, View } from 'react-native';
+import { StyleSheet, Text, ScrollView, View, TextInput, Button } from 'react-native';
 import ListItem from './components/ListItem';
 
 export default function App() {
     const [tasks, setTasks] = useState([
-        {
-            title: 'BREAKFAST',
-            boolean: false
-        },
-        {
-            title: 'LUNCH',
-            boolean: false
-        },
-        {
-            title: 'DINNER',
-            boolean: false
-        }
+        { title: 'Breakfast', boolean: null },
+        { title: 'Lunch', boolean: null },
+        { title: 'Dinner', boolean: null },
+        { title: 'Headache', boolean: null },
+        { title: 'Exercise', boolean: null },
+        { title: 'Shower', boolean: null },
+        { title: 'Work', boolean: null },
+        { title: 'Game', boolean: null },
+        { title: 'Music', boolean: null }
     ])
+
+    function changeBoolean(i, v) {
+        setTasks(newTasks => {
+            newTasks[i].boolean = v
+            return newTasks
+        })
+    }
+
+    function consoleLogTasks() {
+        setInterval(() => {
+            console.log(tasks.map(e => { return e.boolean }))
+        }, 100);
+    }
 
     return (
         <View style={styles.container}>
             <StatusBar style="auto"/>
             <Text style={styles.title}>ACTIVIST</Text>
-            <ScrollView style={{ flexGrow: 1, paddingTop: 20, backgroundColor: 'white', height: '100%' }}>
+            <ScrollView style={{ flexGrow: 1, paddingVertical: 20, backgroundColor: 'rgb(40, 40, 40)' }}>
                 {tasks.map((e, i) => (
-                    <ListItem key={i} task={e}/>
+                    <ListItem key={i} task={e} changeBoolean={changeBoolean} i={i}/>
                 ))}
+                <Button title='CLG' onPress={() => consoleLogTasks()}/>
             </ScrollView>
         </View>
     );
@@ -34,13 +45,16 @@ export default function App() {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'rgb(250, 250, 250)'
+        backgroundColor: 'rgb(40, 40, 40)'
     },
     title: {
         paddingVertical: 10,
         textAlign: 'center',
-        backgroundColor: 'white',
-        shadowOpacity: 0.1,
+        backgroundColor: 'rgb(50, 50, 50)',
+        color: 'rgb(220, 220, 220)',
+        fontSize: 40,
+        // fontFamily: 'SFUIDisplay-Medium',
+        shadowOpacity: 0.25,
         shadowOffset: {
             width: 0,
             height: 5
