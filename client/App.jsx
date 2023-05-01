@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, ScrollView, View, Button } from 'react-native';
-import BooleanItem from './components/BooleanItem';
 import * as Font from "expo-font";
 import AppLoading from 'expo-app-loading';
-import DateTimePicker from '@react-native-community/datetimepicker';
+
+import BooleanItem from './components/BooleanItem';
+import Times from './components/Times';
+import Break from './components/break';
 
 const getFonts = () => {
     Font.loadAsync({
@@ -13,7 +15,6 @@ const getFonts = () => {
 }
 
 export default function App() {
-    const [date, setDate] = useState(new Date())
     const [fontLoaded, setFontLoaded] = useState(false)
     const [tasks, setTasks] = useState([
         { title: 'Breakfast', boolean: null },
@@ -49,8 +50,9 @@ export default function App() {
                         <BooleanItem key={i} task={e} changeBoolean={changeBoolean} i={i}/>
                     ))}
                     {/* <Button title='CLG' onPress={() => consoleLogTasks()}/> */}
-                    <Button title='Submit' onPress={handleSubmit} />
-                    <DateTimePicker mode="time" value={new Date()} onChange={setDate} themeVariant='dark' display='spinner'/>
+                    <Button title='Submit' onPress={handleSubmit} style={{ height: 150, backgroundColor: 'rgb(100, 100, 100)' }}/>
+                    <Times />
+                    <Break />
                     <View style={{ height: 500 }}>
                         <Text>Footer</Text>
                     </View>
